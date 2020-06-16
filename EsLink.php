@@ -271,7 +271,7 @@ class EsLink{
     }
 
     /**
-     * size 设置
+     * size() default:10
      * @param $field
      * @return $this
      */
@@ -337,7 +337,7 @@ class EsLink{
      * 二次聚合
      * @param $field
      * @param $alias
-     * @return $this 
+     * @return $this
      */
     public function havsum($field,$alias){
         if (!empty($this->termsRecord)){
