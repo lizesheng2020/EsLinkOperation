@@ -408,5 +408,4 @@ class EsLink{
             return json_encode($querydsl,JSON_UNESCAPED_UNICODE);
         }
     }
-    //dev A
 }
