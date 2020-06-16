@@ -1,8 +1,8 @@
 <?php
 namespace eslinkoperation;
-use app\api\controller\Api;
-use mysql_xdevapi\Exception;
-
+//---------------------------------
+//|         master                |
+//|--------------------------------
 class EsLink{
     /**
      * 初始化资源限制条件
