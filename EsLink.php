@@ -91,6 +91,13 @@ class EsLink{
                         }
                         array_push($must,["bool" => ["should" => $item]]);
                         break;
+                    case 'fieldsin':
+                        $item = [];
+                        foreach ($v[1] as $fieldk => $fieldv){
+                            $item[] = ["term" => [$fieldv => ["value" => $v[2][$fieldk]]]];
+                        }
+                        array_push($must,["bool" => ["should" => $item]]);
+                        break;
                     case 'not in':
                         $notitem = [];
                         foreach ($v[1] as $in){
@@ -99,11 +106,11 @@ class EsLink{
                         array_push($must_not,["bool" => ["should" => $notitem]]);
                         break;
                     default:
-                        throw new \think\Exception('This expression is not supported '.$operators);
+                        die('This expression is not supported '.$operators);
                 }
             }
         }else{
-            throw new \think\Exception('param error!');
+            die('param error!');
         }
         if (!empty($must))     $this->bool['bool']['must']      = $must;
         if (!empty($must_not)) $this->bool['bool']['must_not']  = $must_not;
@@ -144,8 +151,7 @@ class EsLink{
         if (is_array($ranges)){ //是数组 开始检查格式 key from to
             $keyCount  = count(array_column($ranges,'key'));
             $fromCount = count(array_column($ranges,'from'));
-            $toCount   = count(array_column($ranges,'to'));
-            if (($keyCount == $fromCount) and (($keyCount -1) == $toCount)){  //格式正确
+            if (($keyCount == $fromCount)){  //格式正确
                 if (empty($alias))  $alias = $field;
                 $this->aggsalias = $this->aggsalias.$alias.'|'; //记录aggs别名
                 if (empty($this->aggs['aggs'])){
@@ -160,10 +166,10 @@ class EsLink{
                 }
                 return $this;
             }else{
-                throw new \think\Exception("Array Invalid format [ ['key'=>alias,'from'=>value1,'to'=>value2],...['key'=>alias,'from'=>value1]]");
+                die("Array Invalid format [ ['key'=>alias,'from'=>value1,'to'=>value2],...['key'=>alias,'from'=>value1]]");
             }
         }else{
-            throw new \think\Exception("Param ranges accept Array");
+            die("Param ranges accept Array");
         }
     }
     /**
@@ -175,9 +181,9 @@ class EsLink{
      */
     public function sum($field,$alias,$type = 'sum'){
         if (empty($alias))  //没有起别名
-            throw new \think\Exception('Please give a name to the field you want to aggregate');
+            die('Please give a name to the field you want to aggregate');
         if (!in_array($type,['sum','avg','cardinality','percentiles']))  //目前只支持的操作 sum avg cardinality
-            throw new \think\Exception("Currently only aggregate types are supported sum,avg,cardinality,percentiles");
+            die("Currently only aggregate types are supported sum,avg,cardinality,percentiles");
         if (!empty($this->aggsalias)){     //表示有可sum的结果集
             $aliasArray = explode('|',rtrim($this->aggsalias,'|'));
             $aggsStr = '';
@@ -250,7 +256,7 @@ class EsLink{
      * @return $this
      */
     public function order($field,$order = 'desc'){
-        if (!in_array($order,['desc','asc'])) throw new \think\Exception("[ Order Param accept desc or asc , $order gived ]");
+        if (!in_array($order,['desc','asc'])) die("[ Order Param accept desc or asc , $order gived ]");
         if (!empty($this->aggsalias)){
             $aliasArray = explode('|',rtrim($this->aggsalias,'|'));
             $aggsStr = '';
@@ -310,7 +316,7 @@ class EsLink{
         }
         if (!empty($this->aggsalias)){     //表示有分组查询terms
             if ($alias == false)  //没有起别名
-                throw new \think\Exception('Please give a name to the field you want to aggregate -->source()');
+                die('Please give a name to the field you want to aggregate -->source()');
             $aliasArray = explode('|',rtrim($this->aggsalias,'|'));
             $aggsStr = '';
             foreach ($aliasArray as $a){
@@ -344,10 +350,10 @@ class EsLink{
                 $subStr = substr($aggsStr,0,strripos($aggsStr,'['));
                 eval('$this->aggs'.$subStr.'[$alias] = ["sum" => ["field" => $field]];');
             }else{
-                throw new \think\Exception('expects parameter '.implode(',',$this->termsRecord));
+                die('expects parameter '.implode(',',$this->termsRecord));
             }
         }else{
-            throw new \think\Exception('There is no set that can be filtered twice');
+            die('There is no set that can be filtered twice');
         }
         return $this;
     }
