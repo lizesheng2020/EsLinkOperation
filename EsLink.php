@@ -337,7 +337,7 @@ class EsLink{
      * 二次聚合
      * @param $field
      * @param $alias
-     * @return $this
+     * @return $this 
      */
     public function havsum($field,$alias){
         if (!empty($this->termsRecord)){
@@ -380,7 +380,7 @@ class EsLink{
      * true时返回数组
      * dsl时返回dsl语句
      * @param bool $flag
-     * @return false|string
+     * @return false|string select('dsl') select('arr')
      */
     public function select($flag = '',$type = '',$period = '',$f = false){
         $this->dsl['size']    = $this->querysize;
