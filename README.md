@@ -2,7 +2,7 @@
 + bool
 >相当于sql中where条件
 >>$where[salesAmount] = [eq,value] 一维键值对数组<br>
-$where[] = [fieldsin,[field1,...],[value,...]]
+$where[] = [fieldsin,[field1,...],[value,...]] 多字段对应查询
 + terms
 >相当于sql中的group
 >>terms($groupfield,$alias)  分组字段和分组别名(别名不写默认为字段名)
