@@ -23,4 +23,6 @@ $where[] = [fieldsin,[field1,...],[value,...]]
 >$field 要求区间的字段名<br>
 >$ranges 区间数组注意格式要求<br>
 >$alias 别名  以区间分组 类似terms
++ select
+> 参数 dsl arr 分别返回dsl语句 和数组  notice:需要自己封装dd()函数  
 
