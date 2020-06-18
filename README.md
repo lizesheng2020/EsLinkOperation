@@ -1,5 +1,5 @@
 # EsLinkOperation
-##方法使用介绍
+## 方法使用介绍
 + bool
 >相当于sql中where条件
 >>$where[salesAmount] = [eq,value] 一维键值对数组<br>
