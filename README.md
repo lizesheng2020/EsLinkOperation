@@ -1,4 +1,3 @@
-# EsLinkOperation
 ## 方法使用介绍
 + bool
 >相当于sql中where条件
