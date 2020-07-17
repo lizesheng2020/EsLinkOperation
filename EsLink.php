@@ -399,9 +399,9 @@ class EsLink{
         $this->queryorder = [];
         /*********************有新属性时【记得】添加清除属性*******************************************/
         if ($flag == 'arr'){
-            dd($querydsl);
+            print_r($querydsl);die;
         }elseif($flag == 'dsl'){
-            dd('Query Dsl:<br>'.json_encode($querydsl,JSON_UNESCAPED_UNICODE));
+            echo 'Query Dsl:'.PHP_EOL.json_encode($querydsl,JSON_UNESCAPED_UNICODE);die;
         }else{
             return json_encode($querydsl,JSON_UNESCAPED_UNICODE);
         }
